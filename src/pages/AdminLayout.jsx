@@ -4,6 +4,7 @@ import { FaList } from "react-icons/fa6";
 import { MdBookmarkBorder } from "react-icons/md";
 import { useAppContext } from '../context/AppContext';
 import { NavLink, Outlet } from 'react-router-dom';
+import websiteLogo from "../assets/websiteLogo.png";
 
 function AdminLayout() {
 
@@ -35,7 +36,7 @@ function AdminLayout() {
         <>
             <div className="flex items-center justify-between px-4 md:px-8 border-b border-gray-300 py-3 bg-white transition-all duration-300">
                 <NavLink to="/admin">
-                    <img className="h-9" src="https://raw.githubusercontent.com/prebuiltui/prebuiltui/main/assets/dummyLogo/dummyLogoColored.svg" alt="dummyLogoColored" />
+                    <img className="w-[140px] md:w-[160px]" src={websiteLogo} alt="dummyLogoColored" />
                 </NavLink>
                 <div className="flex items-center gap-5 text-gray-500">
                     <p>Hi! Admin</p>
