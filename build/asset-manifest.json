@@ -1,0 +1,20 @@
+{
+  "files": {
+    "main.css": "/static/css/main.b884e49c.css",
+    "main.js": "/static/js/main.057478d4.js",
+    "static/media/shopping-concept-close-up-portrait-young-beautiful-attractive-redhair-girl-smiling-looking-camera.jpg": "/static/media/shopping-concept-close-up-portrait-young-beautiful-attractive-redhair-girl-smiling-looking-camera.0fd4008d1e56eef93e5a.jpg",
+    "static/media/posterSmall.png": "/static/media/posterSmall.dc944b02fd8cf32defb6.png",
+    "static/media/poster4.png": "/static/media/poster4.30308cc5725aa9ddd214.png",
+    "static/media/image_no_white_bg.png": "/static/media/image_no_white_bg.d6766f00de51bae08b61.png",
+    "static/media/bottombanner.png": "/static/media/bottombanner.4107a8da927fd15c943d.png",
+    "static/media/Picsart_25-05-25_17-01-48-426.png": "/static/media/Picsart_25-05-25_17-01-48-426.e8f3c1a0001460d15a2c.png",
+    "static/media/pngwing.com (1).png": "/static/media/pngwing.com (1).54022210bb5ee11ed622.png",
+    "index.html": "/index.html",
+    "main.b884e49c.css.map": "/static/css/main.b884e49c.css.map",
+    "main.057478d4.js.map": "/static/js/main.057478d4.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.b884e49c.css",
+    "static/js/main.057478d4.js"
+  ]
+}
