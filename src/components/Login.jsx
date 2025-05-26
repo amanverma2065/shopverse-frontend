@@ -247,7 +247,7 @@ function Login() {
                                     {loading ? (state === "login" ? "Signing In..." : "Sending OTP...") : (state === "login" ? "Sign In" : "Sign Up")}
                                 </button>
                             </div>
-                            <div className="text-center gap-x-2 flex justify-center items-center">
+                            <div className="text-center gap-x-2 flex justify-center items-center flex-wrap">
                                 <p className="text-gray-600"> {state === "login" ? "Don't have an account?" : "Already have an account?"} </p>
 
 
