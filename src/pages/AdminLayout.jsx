@@ -4,7 +4,7 @@ import { FaList } from "react-icons/fa6";
 import { MdBookmarkBorder } from "react-icons/md";
 import { useAppContext } from '../context/AppContext';
 import { NavLink, Outlet } from 'react-router-dom';
-import websiteLogo from "../assets/websiteLogo.png";
+import websiteLogo from "../assets/Picsart_25-05-25_17-01-48-426.png";
 
 function AdminLayout() {
 
