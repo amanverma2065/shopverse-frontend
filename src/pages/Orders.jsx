@@ -69,13 +69,13 @@ function Orders() {
                 <div className="space-y-8">
                     {ordersById.map((order, index) => (
                         <div key={index} className="bg-white/80 backdrop-blur-sm rounded-3xl shadow-xl overflow-hidden border border-indigo-100 transform transition-all duration-300 hover:shadow-2xl hover:-translate-y-1">
-                            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-8">
+                            <div className="bg-gradient-to-r from-indigo-50 to-purple-50 sm:p-8 px-2 py-4">
                                 <div className="grid grid-cols-1 md:grid-cols-[2fr_1fr_1fr] gap-6">
-                                    <div className="bg-white/50 p-4 rounded-xl shadow-sm">
+                                    <div className="bg-white/50 sm:p-4 px-2 py-4 rounded-xl shadow-sm">
                                         <p className="text-indigo-600 font-medium mb-1">Order ID</p>
-                                        <p className="font-semibold text-gray-800">{order._id}</p>
+                                        <p className="font-semibold text-sm text-gray-800">{order._id}</p>
                                     </div>
-                                    <div className="bg-white/50 p-4 rounded-xl shadow-sm">
+                                    <div className="bg-white/50 sm:p-4 px-2 py-4 rounded-xl shadow-sm">
                                         <p className="text-indigo-600 font-medium mb-2">Order Status</p>
                                         <span className={`px-4 py-1.5 rounded-full text-sm font-medium ${order.orderStatus === "Delivered" ? "bg-green-100 text-green-700" :
                                             order.orderStatus === "Shipped" ? "bg-blue-100 text-blue-700" :
@@ -84,13 +84,13 @@ function Orders() {
                                             {order.orderStatus}
                                         </span>
                                     </div>
-                                    <div className="bg-white/50 p-4 rounded-xl shadow-sm">
+                                    <div className="bg-white/50 sm:p-4 px-2 py-4 rounded-xl shadow-sm">
                                         <p className="text-indigo-600 font-medium">Total Amount</p>
                                         <p className="font-semibold text-gray-800">₹{order.totalPrice}</p>
                                     </div>
                                 </div>
 
-                                <div className="mt-6 bg-white/50 p-4 rounded-xl shadow-sm">
+                                <div className="mt-6 bg-white/50 sm:p-4 px-2 py-4 rounded-xl shadow-sm">
                                     <p className="text-indigo-600 font-medium mb-1">Shipping Address</p>
                                     <p className="text-gray-700">{order.address.street}, {order.address.city}, {order.address.state}</p>
                                 </div>
@@ -110,7 +110,7 @@ function Orders() {
                                         </div>
 
                                         {item.itemOrderStatus !== "Cancelled" && (
-                                            <div className="bg-white/80 rounded-xl shadow-sm">
+                                            <div className="bg-white/80">
                                                 <div className="flex items-start md:items-center gap-3">
                                                     <p className="text-indigo-600 font-medium">Payment Status</p>
                                                     <span className={`px-4 py-1.5 rounded-full text-sm font-medium ${item.itemPaymentStatus === "Paid"
