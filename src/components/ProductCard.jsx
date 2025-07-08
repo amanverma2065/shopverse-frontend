@@ -56,7 +56,7 @@ const ProductCard = ({ product }) => {
                                     } text-white`}
                             >
                                 <FaShoppingCart className="text-sm" />
-                                {addCartLoading ? "Adding..." : "Add"}
+                                Add
                             </button>
 
                         ) : (
