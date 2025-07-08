@@ -2,7 +2,7 @@ import "./Spinner.css";
 
 function Spinner() {
   return (
-    <div className='spinner'>Spinner</div>
+    <div className='spinner'></div>
   )
 }
 
