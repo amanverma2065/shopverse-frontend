@@ -31,6 +31,8 @@ export const AppContextProvider = ({ children }) => {
     const [ordersById, setOrdersById] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
     const [categories, setCategories] = useState([]);
+    const [addCartLoading, setAddCartLoading] = useState(false);
+    const [decreaseLoading, setDecreaseLoading] = useState(false);
 
     useEffect(() => {
         const savedToken = localStorage.getItem("token");
@@ -86,48 +88,80 @@ export const AppContextProvider = ({ children }) => {
     //     toast.success("Added to cart");
     // }
 
+    // const addToCart = async (productId, quantity = 1) => {
+    //     try {
+    //         const resData = await axios.post("/api/cart/addToCart", { productId, quantity: Number(quantity) });
+    //         console.log("ADDTOCARTRESPONSE :", resData);
+
+    //         if (resData.data.success) {
+    //             toast.success("Added to cart");
+    //             getCartCount();
+    //             getCartItems();
+    //         }
+    //         else {
+    //             toast.error(resData.data.message || "Unable to add item");
+    //         }
+    //     } catch (error) {
+    //         console.error(error);
+    //         console.log(error.response?.data?.message);
+    //         // toast.error(error.response?.data?.message || "Something went wrong.");
+    //         toast.error("Login Required!");
+    //         return;
+    //     }
+    // }
+
     const addToCart = async (productId, quantity = 1) => {
+        setAddCartLoading(true); // Start loading
+        const loadingToastId = toast.loading("Adding to cart..."); // Show loading toast
+
         try {
-            const resData = await axios.post("/api/cart/addToCart", { productId, quantity: Number(quantity) });
+            const resData = await axios.post("/api/cart/addToCart", {
+                productId,
+                quantity: Number(quantity),
+            });
             console.log("ADDTOCARTRESPONSE :", resData);
 
             if (resData.data.success) {
-                toast.success("Added to cart");
+                toast.success("Added to cart", { id: loadingToastId }); // Replace loading toast with success
                 getCartCount();
                 getCartItems();
-            }
-            else {
-                toast.error(resData.data.message || "Unable to add item");
+            } else {
+                toast.error(resData.data.message || "Unable to add item", { id: loadingToastId }); // Replace with error
             }
         } catch (error) {
             console.error(error);
-            console.log(error.response?.data?.message);
-            // toast.error(error.response?.data?.message || "Something went wrong.");
-            toast.error("Login Required!");
-            return;
+            toast.error("Login Required!", { id: loadingToastId });
+        } finally {
+            setAddCartLoading(false); // End loading
         }
-    }
+    };
+
+
 
     const decreaseCartQuantity = async (productId) => {
+        setDecreaseLoading(true); // Start loading
+        const toastId = toast.loading("Removing item..."); // Show loading toast
+
         try {
             const resData = await axios.post("/api/cart/decreaseCartQuantity", { productId });
-            console.log("CART DECREADE RES :", resData);
+            console.log("CART DECREASE RES:", resData);
 
             if (resData.data.success) {
-                toast.success("Item removed");
+                toast.success("Item removed", { id: toastId }); // Replace loading toast with success
                 getCartAmount();
                 getCartCount();
                 getCartItems();
-            }
-            else {
-                toast.error(resData.data.message || "Unable to remove item");
+            } else {
+                toast.error(resData.data.message || "Unable to remove item", { id: toastId });
             }
         } catch (error) {
             console.error(error);
-            toast.error(error.response?.data?.message || "Something went wrong.");
-            return;
+            toast.error(error.response?.data?.message || "Something went wrong.", { id: toastId });
+        } finally {
+            setDecreaseLoading(false); // End loading
         }
-    }
+    };
+
 
     const deleteFromCart = async (productId) => {
         try {
@@ -329,7 +363,11 @@ export const AppContextProvider = ({ children }) => {
         productLoading,
         setProductLoading,
         categories,
-        setCategories
+        setCategories,
+        addCartLoading,
+        setAddCartLoading,
+        decreaseLoading,
+        setDecreaseLoading
     }
 
     return <AppContext.Provider value={values}>

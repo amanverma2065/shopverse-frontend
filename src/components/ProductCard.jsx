@@ -4,7 +4,7 @@ import { useAppContext } from "../context/AppContext";
 import toast from "react-hot-toast";
 
 const ProductCard = ({ product }) => {
-    const { addToCart, decreaseCartQuantity, cartItems, navigate } = useAppContext();
+    const { addToCart, decreaseCartQuantity, cartItems, navigate, addCartLoading, decreaseLoading } = useAppContext();
 
     const isInCart = cartItems.some(item => item.product._id === product._id);
     const quantity = cartItems.find(item => item.product._id === product._id)?.quantity || 0;
@@ -48,27 +48,39 @@ const ProductCard = ({ product }) => {
                     <div onClick={(e) => e.stopPropagation()} className="text-indigo-500">
                         {!isInCart ? (
                             <button
-                                className="flex items-center gap-1 bg-indigo-600 text-white px-3 py-1.5 rounded-lg text-sm"
                                 onClick={() => addToCart(product._id, 1)}
+                                disabled={addCartLoading}
+                                className={`flex items-center gap-1 px-3 py-1.5 rounded-lg text-sm ${addCartLoading
+                                    ? "bg-indigo-400 cursor-not-allowed opacity-70"
+                                    : "bg-indigo-600 hover:bg-indigo-700"
+                                    } text-white`}
                             >
                                 <FaShoppingCart className="text-sm" />
-                                Add
+                                {addCartLoading ? "Adding..." : "Add"}
                             </button>
+
                         ) : (
                             <div className="flex items-center gap-2 bg-indigo-50 rounded-lg px-3 py-1.5 text-sm border border-indigo-100">
-                                <button 
-                                    onClick={() => decreaseCartQuantity(product._id)} 
-                                    className="w-6 h-6 flex items-center justify-center rounded-full bg-white text-indigo-600 border"
+                                <button
+                                    onClick={() => decreaseCartQuantity(product._id)}
+                                    disabled={decreaseLoading}
+                                    className={`w-6 h-6 flex items-center justify-center rounded-full border ${decreaseLoading ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-white text-indigo-600"
+                                        }`}
                                 >
                                     -
                                 </button>
+
                                 <span className="w-6 text-center font-medium text-indigo-600">{quantity}</span>
-                                <button 
-                                    onClick={() => addToCart(product._id)} 
-                                    className="w-6 h-6 flex items-center justify-center rounded-full bg-white text-indigo-600 border"
+
+                                <button
+                                    onClick={() => addToCart(product._id)}
+                                    disabled={addCartLoading}
+                                    className={`w-6 h-6 flex items-center justify-center rounded-full border ${addCartLoading ? "bg-gray-200 text-gray-400 cursor-not-allowed" : "bg-white text-indigo-600"
+                                        }`}
                                 >
                                     +
                                 </button>
+
                             </div>
                         )}
                     </div>
