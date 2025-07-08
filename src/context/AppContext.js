@@ -27,6 +27,7 @@ export const AppContextProvider = ({ children }) => {
     const [paymentType, setPaymentType] = useState("COD");
     const [orderAmount, setOrderAmount] = useState(null);
     const [loading, setLoading] = useState(true);
+    const [productLoading, setProductLoading] = useState(false);
     const [ordersById, setOrdersById] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
 
@@ -59,12 +60,15 @@ export const AppContextProvider = ({ children }) => {
     // }
 
     const fetchData = async () => {
+        setProductLoading(true); // Start loading
         try {
             const resData = await axios.get("/api/product/allProduct");
             console.log("RESPRODUCTDATA :", resData);
             setProducts(resData.data.data);
         } catch (error) {
             toast.error("Failed to load categories");
+        } finally {
+            setProductLoading(false); // Stop loading regardless of success or failure
         }
     };
 
@@ -321,6 +325,8 @@ export const AppContextProvider = ({ children }) => {
         getUserOrderById,
         currentUserId,
         setCurrentUserId,
+        productLoading,
+        setProductLoading
     }
 
     return <AppContext.Provider value={values}>

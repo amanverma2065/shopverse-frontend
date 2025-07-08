@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from 'react'
 import { useAppContext } from '../context/AppContext'
 import ProductCard from "../components/ProductCard";
-import { toast } from 'react-hot-toast';
+import Spinner from '../components/Spinner';
 
 function AllProducts() {
 
-  const { products } = useAppContext();
+  const { products, productLoading } = useAppContext();
   const { searchQuery } = useAppContext();
   const [filteredProducts, setFilterProducts] = useState([]);
 
@@ -33,19 +33,26 @@ function AllProducts() {
             </h2>
             <div className="w-32 h-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full mx-4 md:mx-8 mt-4 md:mt-4"></div>
           </div>
-          <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6 lg:grid-cols-5 mt-6'>
-            {filteredProducts.filter((product) => product).map((product, index) => (
-              <ProductCard product={product} key={product._id} />
-            ))}
-          </div>
+          {productLoading ? (
+            <div className="flex justify-center items-center min-h-[150px]">
+              <Spinner />
+            </div>
+          ) : (
+            <div className='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-3 md:gap-6 lg:grid-cols-5 mt-6'>
+              {filteredProducts.filter((product) => product).map((product, index) => (
+                <ProductCard product={product} key={product._id} />
+              ))}
+            </div>
+          )}
         </div>
       ) : (<div className="flex flex-col items-center justify-center min-h-[60vh] px-4">
         <h1 className="text-3xl md:text-4xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-indigo-600 to-purple-600 mb-4">
           No Product Found!
         </h1>
-      </div>)}
+      </div>)
+      }
 
-    </div>
+    </div >
   )
 }
 
