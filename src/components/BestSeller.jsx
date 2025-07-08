@@ -15,7 +15,11 @@ const BestSeller = () => {
                 </h2>
                 <div className="w-32 h-1.5 bg-gradient-to-r from-indigo-600 to-purple-600 rounded-full mx-4 md:mx-8 mt-4 md:mt-4"></div>
             </div>
-            {productLoading ? (<Spinner />) : (
+            {productLoading ? (
+                <div className="flex justify-center items-center min-h-[150px]">
+                    <Spinner />
+                </div>
+            ) : (
                 <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 md:gap-6 mt-6 md:mx-7 mx-4 ">
                     {products.filter((product) => (product)).slice(0, 5).map((product, index) => (
                         <ProductCard key={index} product={product} />

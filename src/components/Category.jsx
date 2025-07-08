@@ -4,8 +4,7 @@ import { toast } from 'react-hot-toast';
 import Spinner from "./Spinner";
 
 function Category() {
-    const { navigate, axios } = useAppContext();
-    const [categories, setCategories] = useState([]);
+    const { navigate, axios, categories, setCategories } = useAppContext();
     const [categoryLoading, setCategoryLoading] = useState(false);
 
     const fetchData = async () => {

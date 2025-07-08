@@ -1,15 +1,13 @@
-import React from 'react'
 import { useAppContext } from '../context/AppContext'
 import { useParams } from 'react-router-dom';
-import categories from '../assets/categories';
 import ProductCard from '../components/ProductCard';
 
 function ProductCategory() {
 
-    const { products } = useAppContext();
+    const { products, categories } = useAppContext();
     const { category } = useParams();
 
-    const searchCategory = categories.find( (item) => item.path.toLowerCase() === category );
+    const searchCategory = categories.find( (item) => item.name.toLowerCase() === category );
 
     const filteredProducts = products.filter( (product) => product.category.name.trim().replace(/[\s&]+/g, "-").toLowerCase() === category)
 

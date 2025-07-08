@@ -30,6 +30,7 @@ export const AppContextProvider = ({ children }) => {
     const [productLoading, setProductLoading] = useState(false);
     const [ordersById, setOrdersById] = useState([]);
     const [currentUserId, setCurrentUserId] = useState(null);
+    const [categories, setCategories] = useState([]);
 
     useEffect(() => {
         const savedToken = localStorage.getItem("token");
@@ -326,7 +327,9 @@ export const AppContextProvider = ({ children }) => {
         currentUserId,
         setCurrentUserId,
         productLoading,
-        setProductLoading
+        setProductLoading,
+        categories,
+        setCategories
     }
 
     return <AppContext.Provider value={values}>
