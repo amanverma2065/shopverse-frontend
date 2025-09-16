@@ -59,7 +59,7 @@ function Cart() {
 
     const handleOnlinePayment = async () => {
         if (!selectedAddress) {
-            toast.error("Please select an address");
+            toast.error("Please select a delivery address");
             return;
         }
 

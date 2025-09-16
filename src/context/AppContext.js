@@ -253,6 +253,12 @@ export const AppContextProvider = ({ children }) => {
     }
 
     const placeOrder = async () => {
+
+        if (!shippingAddress) {
+            toast.error("Please select a delivery address");
+            return;
+        }
+
         const toastId = toast.loading("Placing your order...");
         try {
             const resData = await axios.post("/api/order/createOrder", {
