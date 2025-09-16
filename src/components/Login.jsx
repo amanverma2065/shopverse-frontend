@@ -14,7 +14,6 @@ function Login() {
     const { firstName, lastName, email, password, confirmPassword } = formData;
     const [loading, setLoading] = useState(false);
 
-    // ✅ Password strength regex
     const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/;
 
     const handleOnChange = (e) => {
@@ -25,7 +24,7 @@ function Login() {
             [name]: value,
         }));
 
-        // ✅ Validate password strength live
+        
         if (name === "password") {
             if (!passwordRegex.test(value)) {
                 setPassAlert("Password must be at least 8 chars, include uppercase, lowercase, number, and special character.");
