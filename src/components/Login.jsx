@@ -75,7 +75,7 @@ function Login() {
         }
 
         if (state === "signup") {
-            // ✅ Extra password validations before API call
+            
             if (!passwordRegex.test(password)) {
                 toast.dismiss(loadingToastId);
                 toast.error("Password does not meet security requirements.");
