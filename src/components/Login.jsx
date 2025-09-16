@@ -24,7 +24,7 @@ function Login() {
             [name]: value,
         }));
 
-        
+
         if (name === "password") {
             if (!passwordRegex.test(value)) {
                 setPassAlert("Password must be at least 8 chars, include uppercase, lowercase, number, and special character.");
@@ -75,7 +75,7 @@ function Login() {
         }
 
         if (state === "signup") {
-            
+
             if (!passwordRegex.test(password)) {
                 toast.dismiss(loadingToastId);
                 toast.error("Password does not meet security requirements.");
@@ -284,11 +284,13 @@ function Login() {
 
                             </div>
 
-                            <div className="text-center gap-x-2 flex justify-center items-center">
-                                <NavLink to='/reset-email' className="inline-block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium hover:opacity-80 transition-opacity duration-200">
-                                    Forgot Password?
-                                </NavLink>
-                            </div>
+                            {state === "login" && (
+                                <div className="text-center gap-x-2 flex justify-center items-center">
+                                    <NavLink to='/reset-email' className="inline-block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium hover:opacity-80 transition-opacity duration-200">
+                                        Forgot Password?
+                                    </NavLink>
+                                </div>
+                            )}
                         </form>
                     </div>
                 </div>
