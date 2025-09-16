@@ -1,10 +1,8 @@
-import React from 'react'
-import { useState } from 'react';
+import React, { useState } from 'react';
 import { toast } from "react-hot-toast";
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { NavLink } from 'react-router-dom';
 import { useAppContext } from '../context/AppContext';
-
 
 function Login() {
     const [state, setState] = useState("login");
@@ -16,13 +14,25 @@ function Login() {
     const { firstName, lastName, email, password, confirmPassword } = formData;
     const [loading, setLoading] = useState(false);
 
+    // ✅ Password strength regex
+    const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&#^])[A-Za-z\d@$!%*?&#^]{8,}$/;
+
     const handleOnChange = (e) => {
-        setFormData((prevData) => {
-            return {
-                ...prevData,
-                [e.target.name]: e.target.value,
+        const { name, value } = e.target;
+
+        setFormData((prevData) => ({
+            ...prevData,
+            [name]: value,
+        }));
+
+        // ✅ Validate password strength live
+        if (name === "password") {
+            if (!passwordRegex.test(value)) {
+                setPassAlert("Password must be at least 8 chars, include uppercase, lowercase, number, and special character.");
+            } else {
+                setPassAlert("");
             }
-        })
+        }
     };
 
     const handleOnSubmit = async (e) => {
@@ -66,6 +76,20 @@ function Login() {
         }
 
         if (state === "signup") {
+            // ✅ Extra password validations before API call
+            if (!passwordRegex.test(password)) {
+                toast.dismiss(loadingToastId);
+                toast.error("Password does not meet security requirements.");
+                setLoading(false);
+                return;
+            }
+            if (password !== confirmPassword) {
+                toast.dismiss(loadingToastId);
+                toast.error("Passwords do not match.");
+                setLoading(false);
+                return;
+            }
+
             try {
                 const sendOtpRes = await axios.post("/api/auth/sendotp", { email });
                 toast.dismiss(loadingToastId);
@@ -85,16 +109,14 @@ function Login() {
         }
     };
 
-
-
-
     return (
         <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 to-purple-50">
             <div className={state === "login" ? "w-full max-w-md px-4" : "w-full max-w-4xl px-4"}>
                 <div className={`bg-white rounded-2xl shadow-2xl border-0 transform hover:scale-[1.01] transition-transform duration-300 ${state === "login" ? "" : "my-6"}`}>
                     <div className="p-6 md:p-8">
                         <h2 className="text-center text-3xl font-bold mb-6 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
-                            {state === "login" ? "Welcome Back!" : "Create Account"}</h2>
+                            {state === "login" ? "Welcome Back!" : "Create Account"}
+                        </h2>
                         <form onSubmit={handleOnSubmit} className="space-y-6">
 
                             {state === "signup" && (
@@ -233,6 +255,9 @@ function Login() {
                                                 )}
                                             </button>
                                         </div>
+                                        {confirmPassword && password !== confirmPassword && (
+                                            <div className="text-red-500 mt-1 text-sm">Passwords do not match.</div>
+                                        )}
                                     </div>
                                 </div>
                             )}
@@ -250,7 +275,6 @@ function Login() {
                             <div className="text-center gap-x-2 flex justify-center items-center flex-wrap">
                                 <p className="text-gray-600"> {state === "login" ? "Don't have an account?" : "Already have an account?"} </p>
 
-
                                 {state === "login" ? (
                                     <NavLink onClick={() => setState("signup")} className="inline-block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium hover:opacity-80 transition-opacity duration-200">
                                         Create Account
@@ -265,7 +289,6 @@ function Login() {
                                 <NavLink to='/reset-email' className="inline-block text-transparent bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text font-medium hover:opacity-80 transition-opacity duration-200">
                                     Forgot Password?
                                 </NavLink>
-
                             </div>
                         </form>
                     </div>
@@ -275,5 +298,4 @@ function Login() {
     )
 }
 
-
-export default Login
+export default Login;
